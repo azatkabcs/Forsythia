@@ -1,0 +1,12 @@
+# ninja log v5
+4	559	6399480286127346	CMakeFiles/CForsythia.dir/CForsythia.cpp.obj	70b6a619bf5d94e9
+0	8	0	clean	9992afb1f91dc381
+0	561	6399480286127346	CMakeFiles/CForsythia.dir/utils.cpp.obj	60c9ac77613e2b6
+562	716	6399480287426918	CForsythia.exe	f0cc6e41673954e2
+0	405	6399482640277839	CMakeFiles/CForsythia.dir/CForsythia.cpp.obj	804cd2debe9d0aa7
+4	411	6399482640398229	CMakeFiles/CForsythia.dir/utils.cpp.obj	4740d5509bb80289
+411	559	6399482641627481	CForsythia.exe	f0cc6e41673954e2
+1	390	6399483290659172	CMakeFiles/CForsythia.dir/utils.cpp.obj	4740d5509bb80289
+390	523	6399483291788056	CForsythia.exe	f0cc6e41673954e2
+0	530	6399483514420826	CMakeFiles/CForsythia.dir/CForsythia.cpp.obj	804cd2debe9d0aa7
+531	689	6399483515750314	CForsythia.exe	f0cc6e41673954e2

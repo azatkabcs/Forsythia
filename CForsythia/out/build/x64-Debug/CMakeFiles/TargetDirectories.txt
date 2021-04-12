@@ -1,0 +1,3 @@
+C:/work/Forsythia/CForsythia/out/build/x64-Debug/CMakeFiles/CForsythia.dir
+C:/work/Forsythia/CForsythia/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+C:/work/Forsythia/CForsythia/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
