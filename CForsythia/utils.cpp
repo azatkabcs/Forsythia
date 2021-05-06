@@ -1,64 +1,61 @@
-/* GCD, Extended GCD and Modular inversion implementation */
 #include "utils.h"
 
-/* grand common divisor */
-Type GCD(Type a, Type b) {
-	Type r;
+void buildsmallprimes(uint32_t c, vector<uint32_t> &result) {
+	vector<bool> sprimes(c);
 
-	while (!b == 0) {
-		r = a % b;
-		a = b;
-		b = r;
-	}
-	return a;
+	for (uint32_t i = 2; i < c; i++)
+		if (sprimes[i] == false)
+			for (int j = 2 * i; j < c; j += i)
+				sprimes[j] = true;
+
+	for (uint32_t i = 2; i < c; i++)
+		if (sprimes[i] == false)
+			result.push_back(i);
 }
 
-/* extended grand common divisor */
-void EGCD(Type a, Type b, out_egcd &out) {
-	Type v1, v3, q, t1, t3;
-	out.u = 1;
-	out.d = a;
+/* Miller-Rabin */
+bool MR(mpz_t c, uint32_t k) {
+	mpz_t N, u, t, a, gcd, i, a_mod_N, N_minus_1;
+	mpz_inits(N, u, t, a, gcd, i, a_mod_N, N_minus_1, NULL);
+	mpz_set(N, c);
+	mpz_sub_ui(u, N, 1);
 
-	if (b == 0) {
-		out.v = 0;
-#ifdef DEBUG
-		dump_egcd(out);
-#endif
-		return;
+	gmp_randstate_t state;
+	bool flg;
+
+	gmp_randinit_default(state); //srand(time(NULL));
+
+	while (mpz_fdiv_ui(u, 2) == 0)
+	{
+		mpz_tdiv_q_2exp(u, u, 1); //u >>= 1;
+		mpz_add_ui(t, t, 1); //t++
 	}
-	else {
-		v1 = 0;
-		v3 = b;
+
+	for (uint32_t cnt = 0; cnt < k; cnt++) {
+		mpz_urandomm(a, state, c); //a = 1 + rand() % (c - 1);
+		if (!mpz_sgn(a)) {
+			mpz_add_ui(a, a, 1);
+		}
+		mpz_gcd(gcd, a, c);
+		if (mpz_cmp_ui(gcd, 1))
+			return false;
+		mpz_powm(a, a, u, N); //a = (uint64_t)pow((double)a, (double)u) % N;
+		if (!mpz_cmp_ui(a, 1)) //if (a == 1)
+			continue;
+		flg = false;
+		for (mpz_set_ui(i, 0); mpz_cmp(i,t) < 0; mpz_add_ui(i, i ,1)) { //for (int i = 0; i < t; i++)
+			mpz_mod(a_mod_N, a, N);
+			mpz_sub_ui(N_minus_1, N, 1);
+			if (!mpz_cmp(a_mod_N, N_minus_1)) { //if (a % N == N - 1) {
+				flg = true;
+				continue;
+			}
+			mpz_powm_ui(a, a, 2, N); //a = (a*a) % N;
+		}
+		if (flg == true)
+			continue;
+		else
+			return false;
 	}
-
-	while (v3 != 0) {
-		q = out.d / v3;
-		t3 = out.d % v3;
-		t1 = out.u - q * v1;
-		out.u = v1;
-		out.d = v3;
-		v1 = t1;
-		v3 = t3;
-	}
-	out.v = (out.d - a * out.u) / b;
-#ifdef DEBUG
-	dump_egcd(out);
-#endif
-}
-
-void dump_egcd(out_egcd out) {
-	cout << "Extended GCD" << endl;
-	cout << "d = " << out.d << " " << "u = " << out.u << " " << "v = " << out.v << endl;
-}
-
-Type modinv(Type a, Type m) {
-	out_egcd out = { 0 };
-	EGCD(a % m, m, out);
-
-	if (out.d != 1)
-		cout << "Error! Modular inverse does not exist!" << endl;
-	else
-		return out.u + m;
-
-	return -1;
+	return true;
 }
