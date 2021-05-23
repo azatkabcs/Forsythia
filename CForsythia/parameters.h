@@ -29,3 +29,5 @@ typedef struct parameters_t {
 
 extern mpz_t p_global;
 extern parameters forsythia80;
+extern parameters forsythia128;
+extern parameters forsythia256;

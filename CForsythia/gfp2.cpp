@@ -15,6 +15,11 @@ GFp2Element::GFp2Element(mpz_t x) {
     mpz_set(a, x);
 }
 
+GFp2Element::GFp2Element(unsigned int x) {
+    mpz_inits(a, b, NULL);
+    mpz_set_ui(a, x);
+}   
+
 GFp2Element::GFp2Element(const GFp2Element& other) {
     mpz_inits(a, b, NULL);
     mpz_set(a, other.a);
@@ -151,7 +156,7 @@ bool GFp2Element::operator!=(mpz_t other) {
     return !this->operator==(other);
 }
 
-bool GFp2Element::iszero() {
+bool GFp2Element::iszero() const {
     return !mpz_cmp_ui(a, 0) && !mpz_cmp_ui(b, 0);
 }
 

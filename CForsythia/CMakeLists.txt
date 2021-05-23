@@ -13,7 +13,13 @@ INCLUDE_DIRECTORIES(
     "${GMP_INCLUDES}"
 )
 # Добавьте источник в исполняемый файл этого проекта.
-add_executable (CForsythia "utils.cpp" "utils.h" "gfp2.cpp" "gfp2.h" "parameters.h" "parameters.cpp" "montgomery.h" "montgomery.cpp" "CForsythia.cpp" "CForsythia.h" )
+add_executable (CForsythia 
+    "utils.cpp" "utils.h" 
+    "gfp2.cpp" "gfp2.h" 
+    "parameters.h" "parameters.cpp" 
+    "montgomery.h" "montgomery.cpp" 
+    "isogeny.h" "isogeny.cpp"
+    "CForsythia.cpp" "CForsythia.h" )
 # Линковка необходимых библиотек
 target_link_libraries(CForsythia ${GMP_LIBRARIES})
 

@@ -11,6 +11,7 @@ public:
     GFp2Element();
     GFp2Element(mpz_t a, mpz_t b);
     GFp2Element(mpz_t a);
+    GFp2Element(unsigned int);
     GFp2Element(const GFp2Element&);
     ~GFp2Element();
     GFp2Element operator+(const GFp2Element&) const;
@@ -27,6 +28,6 @@ public:
     bool operator==(mpz_t);
     bool operator!=(const GFp2Element&) const;
     bool operator!=(mpz_t);
-    bool iszero();
+    bool iszero() const;
     friend std::ostream& operator<<(std::ostream& out, const GFp2Element& elem);
 };

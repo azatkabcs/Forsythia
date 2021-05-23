@@ -8,5 +8,6 @@
 #include "gfp2.h"
 #include "parameters.h"
 #include "montgomery.h"
+#include "isogeny.h"
 
 // TODO: установите здесь ссылки на дополнительные заголовки, требующиеся для программы.
